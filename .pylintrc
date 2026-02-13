@@ -1,0 +1,22 @@
+[FORMAT]
+max-line-length=256
+[MESSAGES CONTROL]
+
+# Enable the message, report, category or checker with the given id(s). You can
+# either give multiple identifier separated by comma (,) or put this option
+# multiple time.
+#enable=
+
+# Disable the message, report, category or checker with the given id(s). You
+# can either give multiple identifier separated by comma (,) or put this option
+# multiple time (only on the command line, not in the configuration file where
+# it should appear only once).
+# W0718 - Too broad exception caught
+# W0702 - bare except
+# W0719 - broad exception raised
+# W1514 - unspecified encoding
+# C0209 - Consider using fstring
+# E0401 - Import not found
+# E0611 - Name not found in module
+# R1716 - Chaining comparison operators
+disable=W0718,W0702,W0719,W1514,C0209,E0401,E0611,R1716
