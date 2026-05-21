@@ -5,17 +5,22 @@ import time
 from msvcrt import kbhit
 import serial
 
-sequence = [{'time_s':1.5, 'voltage':12.0},
-            {'time_s':1.5, 'voltage':13.0},
-            {'time_s':1.5, 'voltage':14.0},
-            {'time_s':1.5, 'voltage':15.0},
-            {'time_s':1.5, 'voltage':16.0},
-            {'time_s':1.5, 'voltage':17.0},
-            {'time_s':1.5, 'voltage':18.0},
-            {'time_s':1.5, 'voltage':8.0},
-            {'time_s':1.5, 'voltage':9.0},
-            {'time_s':1.5, 'voltage':10.0},
-            {'time_s':1.5, 'voltage':11.0}
+sequence = [{'time_s':0.2, 'voltage':8.0},
+            {'time_s':0.2, 'voltage':9.0},
+            {'time_s':0.2, 'voltage':10.0},
+            {'time_s':0.2, 'voltage':11.0},
+            {'time_s':0.2, 'voltage':12.0},
+            {'time_s':0.2, 'voltage':13.0},
+            {'time_s':0.2, 'voltage':14.0},
+            {'time_s':0.2, 'voltage':15.0},
+            {'time_s':0.2, 'voltage':16.0},
+            {'time_s':0.2, 'voltage':17.0},
+            {'time_s':0.2, 'voltage':18.0},
+            {'time_s':0.2, 'voltage':18.0},
+            {'time_s':0.2, 'voltage':8.0},
+            {'time_s':0.2, 'voltage':18.0},
+            {'time_s':0.2, 'voltage':8.0},
+
             ]
 
 with serial.Serial(port='COM13', baudrate=9600, bytesize=8, parity='N', stopbits=1, timeout=1.5) as sdev:
@@ -24,12 +29,14 @@ with serial.Serial(port='COM13', baudrate=9600, bytesize=8, parity='N', stopbits
     sdev.write(b'VSET:11.5\n')
     sdev.write(b'VSET?\n')
     set_voltage = sdev.readline().decode('utf-8').strip()
-    sdev.write(b'ISET:20.0\n')
+    sdev.write(b'ISET:15.0\n')
     sdev.write(b'ISET?\n')
     print('Set: {} volts, {} Amps'.format(set_voltage, sdev.readline().decode('utf-8').strip()))
+
+    #TODO this line does not work for 72 series
     sdev.write(b'OUT1\n')   # Turn on if not already
 
-    for i in range(100):
+    for i in range(10000):
         for step in sequence:
             try:
                 sdev.write('VSET:{:.1f}\n'.format(step['voltage']).encode('utf-8'))
